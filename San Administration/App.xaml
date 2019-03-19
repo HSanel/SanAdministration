@@ -1,0 +1,13 @@
+﻿<Application x:Class="San_Administration.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:San_Administration"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <BitmapImage x:Key="Logo" UriSource="pack://application:,,,/IconsSource/mainLogo.png"/>
+        <BitmapImage x:Key="ArrowLeft" UriSource="pack://application:,,,/IconsSource/arrowLeft.png"/>
+        <BitmapImage x:Key="ArrowRight" UriSource="pack://application:,,,/IconsSource/arrowRight.png"/>
+        <BitmapImage x:Key="Save" UriSource="pack://application:,,,/IconsSource/save.png"/>
+        <BitmapImage x:Key="Folder" UriSource="pack://application:,,,/IconsSource/folder.png"/>
+    </Application.Resources>
+</Application>
