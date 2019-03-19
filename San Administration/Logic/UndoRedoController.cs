@@ -52,7 +52,7 @@ namespace San_Administration.Logic
 
         public void Undo()
         {
-            if(focusedElements.Count != 0 && !lockUndo && pointer>0)
+            if(focusedElements.Count != 0 && !lockUndo && pointer>1)
             {
                 focusedElements[pointer].DataContext = false;
                 ApplicationCommands.Undo.Execute(null, focusedElements[pointer]);
