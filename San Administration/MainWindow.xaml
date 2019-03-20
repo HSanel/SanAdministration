@@ -35,7 +35,10 @@
                         <Image Source="{DynamicResource Folder}" Height="20" Width="20"/>
                     </Button>
                     <Button Command="{Binding SaveCommand}" Margin="5,0,0,0">
-                        <Image Source="{DynamicResource Save}" Height="20" Width="20"/>
+                        <Image Source="{DynamicResource Save}" Height="25" Width="25"/>
+                    </Button>
+                    <Button Command="{Binding SaveAsCommand}" Margin="5,0,0,0" Padding="0,3,0,0">
+                        <Image Source="{DynamicResource SaveAs}" Height="26" Width="26" />
                     </Button>
                 </ToolBar>
             </ToolBarTray>

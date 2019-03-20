@@ -4,19 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B56969FE-04FA-4FBC-9451-9433DB6301CD}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <RootNamespace>San_Administration</RootNamespace>
-    <AssemblyName>San Administration</AssemblyName>
+    <ProjectGuid>{D3A8D371-5EA6-4D30-91A2-0F4DA1A08ED1}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>San.Base.Memory</RootNamespace>
+    <AssemblyName>San.Base.Memory</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -26,7 +24,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -37,15 +34,6 @@
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="San.Base">
-      <HintPath>..\San.Base\bin\Release\San.Base.dll</HintPath>
-    </Reference>
-    <Reference Include="San.Base.Memory">
-      <HintPath>..\San.Base.Memory\bin\Debug\San.Base.Memory.dll</HintPath>
-    </Reference>
-    <Reference Include="San.Base.Plugin">
-      <HintPath>..\San.Base.Plugin\bin\Release\San.Base.Plugin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -63,27 +51,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Host\GuiHost.cs" />
-    <Compile Include="Logic\ProjectMemory.cs" />
-    <Compile Include="Logic\UndoRedoController.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="DataJsonSerilizer.cs" />
+    <Compile Include="ProjectMemory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -106,26 +75,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="View\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="IconsSource\arrowLeft.png" />
-    <Resource Include="IconsSource\arrowRight.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="IconsSource\folder.png" />
-    <Resource Include="IconsSource\save.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="IconsSource\mainLogo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="IconsSource\saveAs.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

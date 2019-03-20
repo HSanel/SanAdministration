@@ -8,6 +8,7 @@
         <BitmapImage x:Key="ArrowLeft" UriSource="pack://application:,,,/IconsSource/arrowLeft.png"/>
         <BitmapImage x:Key="ArrowRight" UriSource="pack://application:,,,/IconsSource/arrowRight.png"/>
         <BitmapImage x:Key="Save" UriSource="pack://application:,,,/IconsSource/save.png"/>
+        <BitmapImage x:Key="SaveAs" UriSource="pack://application:,,,/IconsSource/saveAs.png"/>
         <BitmapImage x:Key="Folder" UriSource="pack://application:,,,/IconsSource/folder.png"/>
     </Application.Resources>
 </Application>

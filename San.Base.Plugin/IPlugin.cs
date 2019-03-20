@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,12 +13,14 @@ namespace San.Base.Plugin
         string Title { get; }
         string Category { get; }
         string Description { get; }
-        Page View { get; set; }
+        IPluginPage View { get; set; }
         event EventHandler ControlChangedTrigger;
 
         void OnLoad();
         void OnResume();
         void OnPause();
         void ControlChanged(object sender, EventArgs e);
+        Hashtable OnSave();
+        void OnOpen(object inData);
     }
 }

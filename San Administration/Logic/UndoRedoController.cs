@@ -14,7 +14,6 @@ namespace San_Administration.Logic
         int pointer = 0;
         int capacity = 10;
         bool lockUndo = false;
-        bool listChanged = false;
 
         public UndoRedoController()
         {

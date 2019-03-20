@@ -8,11 +8,15 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PagePlug">
-
-    <StackPanel>
+    <StackPanel >
         <Button Content="Change" Margin="50" Click="Button_Click" />
-        <TextBox  Width="100" TextWrapping="Wrap" Text="TextBlock" TextChanged="Control_Changed"/>
-        <TextBox  Width="100" TextWrapping="Wrap" Text="TextBlock" TextChanged="Control_Changed" Margin="350,0" />
+        <TextBox Name="sTB_1" Width="100" TextWrapping="Wrap" Text="TextBlock" TextChanged="Control_Changed">
+            <TextBox.CommandBindings>
+                <CommandBinding Command="Save"/>
+            </TextBox.CommandBindings>
+        </TextBox>
+        <TextBox Name="sTB_2"  Width="100" TextWrapping="Wrap" Text="TextBlock" TextChanged="Control_Changed" Margin="350,0" />
+        <CheckBox Name="sCHB_1" Content="CheckBox"/>
         <Label Name="lbBsp" Content="Beispiel Label" Margin="336,194,316,224" FontSize="20" Background="#FF9C9CFF"/>
     </StackPanel>
 </Page>

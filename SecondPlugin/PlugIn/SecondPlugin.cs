@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace SecondPlugin.PlugIn
     public class SecondPlugin : IPlugin
     {
         public event EventHandler ControlChangedTrigger;
+        private ViewModel viewModel;
 
         public string Title
         {
@@ -30,7 +32,7 @@ namespace SecondPlugin.PlugIn
         }
 
 
-        public Page View
+        public IPluginPage View
         {
             get;
             set;
@@ -47,9 +49,11 @@ namespace SecondPlugin.PlugIn
 
         public void OnLoad()
         {
-            PagePlug pagePlug = new PagePlug();
+            viewModel = new ViewModel();
+            PagePlug pagePlug = new PagePlug(viewModel);
             pagePlug.StackUpdated += ControlChanged;
-            View = pagePlug;
+            //View = pagePlug;
+
 
            
         }
@@ -57,6 +61,21 @@ namespace SecondPlugin.PlugIn
         public void ControlChanged(object sender, EventArgs e)
         {
             ControlChangedTrigger(sender, e);
+        }
+
+        public Hashtable OnSave()
+        {
+            if(View != null)
+            {
+                return View.SaveData();
+            }
+
+            return null;
+        }
+
+        public void OnOpen(object inData)
+        {
+            View.OpenData(inData);
         }
 
         public void OnPause()
@@ -68,5 +87,7 @@ namespace SecondPlugin.PlugIn
         {
             
         }
+
+
     }
 }

@@ -32,8 +32,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="San.Base.Plugin">
-      <HintPath>..\San.Base.Plugin\bin\Release\San.Base.Plugin.dll</HintPath>
+    <Reference Include="San.Base, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\San.Base\bin\Debug\San.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="San.Base.Memory">
+      <HintPath>..\San.Base.Memory\bin\Debug\San.Base.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="San.Base.Plugin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\San.Base.Plugin\bin\Debug\San.Base.Plugin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
