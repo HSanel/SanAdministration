@@ -33,9 +33,11 @@ namespace San_Administration.Host
             _pluginMenu = new ObservableCollection<Model.PluginData>();
             SelectPlugin = new CustomCommand<int>(SelectPluginHandler);
             int id = 0;
+            undoRedoController = new Logic.UndoRedoController();
 
             foreach (IPlugin plug in plugins)
             {
+                undoRedoController.AddPlug = new List<FrameworkElement>();
                 plug.ControlChangedTrigger += Controll_GotFocus;
                 PluginMenu.Add(new Model.PluginData(plug.Title, id));
                 id++;
@@ -44,6 +46,7 @@ namespace San_Administration.Host
             currentView = plugins[0].MainView;
             configurationView = plugins[0].ConfigurationView;
             Title = plugins[0].Title;
+            undoRedoController.SelectPlugin(0);
             
         }
 
@@ -108,6 +111,7 @@ namespace San_Administration.Host
                     CurrentView = plugins[i].MainView;
                     CurrentConfigurationView = plugins[i].ConfigurationView;
                     Title = plugins[i].Title;
+                    undoRedoController.SelectPlugin(i);
                     return;
                 }
             }
@@ -135,8 +139,6 @@ namespace San_Administration.Host
             OpenCommand = new CustomCommand(OpenHandler);
             SaveCommand = new CustomCommand(SaveHandler);
             SaveAsCommand = new CustomCommand(SaveAsHandler);
-
-            undoRedoController = new Logic.UndoRedoController();
         }
 
         private void Controll_GotFocus(object sender, EventArgs e)

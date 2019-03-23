@@ -10,16 +10,31 @@ namespace San_Administration.Logic
 {
     public class UndoRedoController
     {
+        List<List<FrameworkElement>> listPlug = new List<List<FrameworkElement>>();
         List<FrameworkElement> focusedElements;
-        int pointer = 0;
+        List<int> pointers = new List<int>();
+        //int pointer = 0;
         int capacity = 10;
         bool lockUndo = false;
+        int checkedId = 0;
+        
 
-        public UndoRedoController()
+        public UndoRedoController(){}
+
+        public void SelectPlugin(int id)
         {
-            focusedElements = new List<FrameworkElement>();
+            focusedElements = listPlug[id];
+            checkedId = id;
         }
 
+        public List<FrameworkElement> AddPlug
+        {
+            set
+            {
+                listPlug.Add(value);
+                pointers.Add(0);
+            }
+        }
         public void ChangeCapacity(int capacity)
         {
             if(capacity <= 50)
@@ -31,7 +46,7 @@ namespace San_Administration.Logic
         public void Push(FrameworkElement sender)
         {
             bool iteration = true;
-            if (pointer < focusedElements.Count - 1)
+            if (pointers[checkedId] < focusedElements.Count - 1)
             {
                 deleteFolowingChanges();
                 iteration = false;
@@ -39,51 +54,53 @@ namespace San_Administration.Logic
 
             focusedElements.Add(sender);
 
-            if (pointer == capacity - 1)
+            if (pointers[checkedId] == capacity - 1)
             {
                 focusedElements.RemoveAt(0);
             }
             else if(focusedElements.Count > 1 && iteration)
             {
-                pointer++;
+                pointers[checkedId]++;
             }
         }
 
         public void Undo()
         {
-            if(focusedElements.Count != 0 && !lockUndo && pointer>1)
+            
+            if (focusedElements.Count != 0 && !lockUndo && pointers[checkedId] > 1)
             {
-                focusedElements[pointer].DataContext = false;
-                ApplicationCommands.Undo.Execute(null, focusedElements[pointer]);
+                focusedElements[pointers[checkedId]].DataContext = false;
+                ApplicationCommands.Undo.Execute(null, focusedElements[pointers[checkedId]]);
 
-                if (pointer > 0)
-                    pointer--;
-                else if(pointer == 0)
+                if (pointers[checkedId] > 0)
+                    pointers[checkedId]--;
+                else if (pointers[checkedId] == 0)
                     lockUndo = true;
             }
+            
         }
 
         public void Redo()
         {
-            if (pointer < focusedElements.Count)
+            if (pointers[checkedId] < focusedElements.Count)
             {
-                if (pointer < focusedElements.Count - 1)
-                    pointer++;
-                else if (pointer > 0)
+                if (pointers[checkedId] < focusedElements.Count - 1)
+                    pointers[checkedId]++;
+                else if (pointers[checkedId] > 0)
                     lockUndo = false;
 
-                focusedElements[pointer].DataContext = false;
-                ApplicationCommands.Redo.Execute(null, focusedElements[pointer]);     
+                focusedElements[pointers[checkedId]].DataContext = false;
+                ApplicationCommands.Redo.Execute(null, focusedElements[pointers[checkedId]]);
             }
         }
 
         private void deleteFolowingChanges()
         {
-            for(int i = focusedElements.Count - 1; i > pointer ; i--)
+            for(int i = focusedElements.Count - 1; i > pointers[checkedId]; i--)
             {
                 focusedElements.RemoveAt(i);
             }
-            pointer = focusedElements.Count;
+            pointers[checkedId] = focusedElements.Count;
         }
 
     }
