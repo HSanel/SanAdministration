@@ -19,7 +19,7 @@ namespace SecondPlugin.PlugIn
         {
             get
             {
-                return "First Plugin";
+                return "Second Plugin";
             }
         }
 
@@ -32,7 +32,7 @@ namespace SecondPlugin.PlugIn
         }
 
 
-        public IPluginPage View
+        public IPluginPage MainView
         {
             get;
             set;
@@ -42,20 +42,25 @@ namespace SecondPlugin.PlugIn
         {
             get
             {
-                return "First Category";
+                return "Second Category";
             }
         }
 
+        public Page ConfigurationView
+        {
+            get;
+            set;
+        }
 
         public void OnLoad()
         {
             viewModel = new ViewModel();
-            PagePlug pagePlug = new PagePlug(viewModel);
+            MainPagePlug pagePlug = new MainPagePlug(viewModel);
             pagePlug.StackUpdated += ControlChanged;
-            //View = pagePlug;
+            MainView = pagePlug;
 
-
-           
+            ConfigurationPage configurationPage = new ConfigurationPage(viewModel);
+            ConfigurationView = configurationPage;
         }
 
         public void ControlChanged(object sender, EventArgs e)
@@ -65,9 +70,9 @@ namespace SecondPlugin.PlugIn
 
         public Hashtable OnSave()
         {
-            if(View != null)
+            if(MainView != null)
             {
-                return View.SaveData();
+                return MainView.SaveData();
             }
 
             return null;
@@ -75,7 +80,7 @@ namespace SecondPlugin.PlugIn
 
         public void OnOpen(object inData)
         {
-            View.OpenData(inData);
+            MainView.OpenData(inData);
         }
 
         public void OnPause()

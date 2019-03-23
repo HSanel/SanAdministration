@@ -10,7 +10,8 @@ using System.Windows.Input;
 using System.Windows;
 using System.Collections;
 using San.Base.Memory;
-
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
 namespace San_Administration.Host
 {
@@ -20,27 +21,30 @@ namespace San_Administration.Host
         PluginLoader plugLoader;
         List<IPlugin> plugins;
         IPluginPage currentView;
+        Page configurationView;
         Stack<IInputElement> focusedElements;
         string path = "";
-
-
+        ObservableCollection<Model.PluginData> _pluginMenu;
         public GuiHost()
         {
             InitializeViewModel();
             plugLoader = new PluginLoader(pluginPath);
             plugins = plugLoader.LoadPlugins().ToList<IPlugin>();
-            List<ListViewItem> _pluginsItems = new List<ListViewItem>();
-            foreach(IPlugin plug in plugins)
+            _pluginMenu = new ObservableCollection<Model.PluginData>();
+            SelectPlugin = new CustomCommand<int>(SelectPluginHandler);
+            int id = 0;
+
+            foreach (IPlugin plug in plugins)
             {
-                ListViewItem item = new ListViewItem();
-                item.Content = plug.Title;
                 plug.ControlChangedTrigger += Controll_GotFocus;
-                _pluginsItems.Add(item);
+                PluginMenu.Add(new Model.PluginData(plug.Title, id));
+                id++;
             }
-  
-            currentView = plugins[0].View;
+
+            currentView = plugins[0].MainView;
+            configurationView = plugins[0].ConfigurationView;
             Title = plugins[0].Title;
-           
+            
         }
 
         public IPluginPage CurrentView
@@ -56,10 +60,30 @@ namespace San_Administration.Host
             }
         }
 
-        public List<ListViewItem> MenuItems
+        public Page CurrentConfigurationView
         {
-            get;
-            private set;
+            get
+            {
+                return configurationView;
+            }
+            set
+            {
+                configurationView = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<Model.PluginData> PluginMenu
+        {
+            get
+            {
+                return _pluginMenu;
+            }
+            private set
+            {
+                _pluginMenu = value;
+                OnPropertyChanged();
+            }
         }
 
         string title;
@@ -67,6 +91,26 @@ namespace San_Administration.Host
         {
             get { return title; }
             set { title = value; OnPropertyChanged(); }
+        }
+
+        public ICommand SelectPlugin
+        { get;
+          private set;
+        }
+
+
+        private void SelectPluginHandler(int id)
+        {
+            for(int i =0; i < plugins.Count; i++)
+            {
+                if(i == id)
+                {
+                    CurrentView = plugins[i].MainView;
+                    CurrentConfigurationView = plugins[i].ConfigurationView;
+                    Title = plugins[i].Title;
+                    return;
+                }
+            }
         }
 
         //------------------------ViewModel----------------------------------------------
@@ -80,6 +124,7 @@ namespace San_Administration.Host
         Hashtable outMemory;
         Hashtable inMemory;
         DataJsonSerilizer serilizer;
+
         private void InitializeViewModel()
         {
             serilizer = new DataJsonSerilizer();

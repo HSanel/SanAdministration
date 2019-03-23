@@ -38,14 +38,16 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="San.Base">
-      <HintPath>..\San.Base\bin\Release\San.Base.dll</HintPath>
+    <Reference Include="San.Base, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\San.Base\bin\Debug\San.Base.dll</HintPath>
     </Reference>
     <Reference Include="San.Base.Memory">
       <HintPath>..\San.Base.Memory\bin\Debug\San.Base.Memory.dll</HintPath>
     </Reference>
-    <Reference Include="San.Base.Plugin">
-      <HintPath>..\San.Base.Plugin\bin\Release\San.Base.Plugin.dll</HintPath>
+    <Reference Include="San.Base.Plugin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\San.Base.Plugin\bin\Debug\San.Base.Plugin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -76,7 +78,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Host\GuiHost.cs" />
-    <Compile Include="Logic\ProjectMemory.cs" />
     <Compile Include="Logic\UndoRedoController.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -84,6 +85,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\PluginData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -110,9 +112,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="View\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="IconsSource\arrowLeft.png" />
     <Resource Include="IconsSource\arrowRight.png" />

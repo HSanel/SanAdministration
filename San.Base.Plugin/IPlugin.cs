@@ -13,7 +13,8 @@ namespace San.Base.Plugin
         string Title { get; }
         string Category { get; }
         string Description { get; }
-        IPluginPage View { get; set; }
+        IPluginPage MainView { get; set; }
+        Page ConfigurationView { get; set; }
         event EventHandler ControlChangedTrigger;
 
         void OnLoad();

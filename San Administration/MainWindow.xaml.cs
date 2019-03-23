@@ -21,15 +21,20 @@ namespace San_Administration
     /// </summary>
     public partial class MainWindow : Window
     {
-        Host.GuiHost guiHost;
 
         public MainWindow()
         {
+            
+            DataContext = new Host.GuiHost();
             InitializeComponent();
-            guiHost = new Host.GuiHost();
-            DataContext = guiHost;
-
         }
 
+        private void RadioButton_Loaded(object sender, RoutedEventArgs e)
+        {
+            RadioButton rb = (RadioButton)sender;
+            Model.PluginData pluginData = (Model.PluginData)rb.DataContext;
+            if (pluginData.ID == 0)
+                rb.IsChecked = true;
+        }
     }
 }

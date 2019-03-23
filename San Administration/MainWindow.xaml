@@ -42,23 +42,56 @@
                     </Button>
                 </ToolBar>
             </ToolBarTray>
+
+            <StackPanel>
+                <Frame NavigationUIVisibility="Hidden" Content="{Binding CurrentConfigurationView}"/>
+            </StackPanel>
         </StackPanel>
         <Grid Grid.Row="1" Background="White">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition Width="300"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Background="#FFE5E5E5" Margin="0,1,5,0">
                 <StackPanel.Effect>
                     <DropShadowEffect Opacity="0.2" Direction="300"/>
                 </StackPanel.Effect>
-                <ListView Background="#FFE5E5E5" BorderBrush="{x:Null}">
-
-                </ListView>
+                <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" BorderBrush="Transparent">
+                    <ItemsControl x:Name="MenuItem"  ItemsSource="{Binding PluginMenu}" >
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <RadioButton Height="70" Loaded="RadioButton_Loaded" GroupName="MenuButtons" Content="{Binding Name}" Command="{Binding ElementName=MenuItem, Path=DataContext.SelectPlugin}" CommandParameter="{Binding ID}">
+                                    <RadioButton.Style>
+                                        <Style TargetType="RadioButton">
+                                            <Setter Property="Background" Value="#FFDA5555"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                                                        <Border Background="{TemplateBinding Background}" BorderBrush="Gray" BorderThickness="1">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="Orange"/>
+                                                </Trigger>
+                                                <Trigger Property="IsChecked" Value="True">
+                                                    <Setter Property="Background" Value="Bisque"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </RadioButton.Style>
+                                </RadioButton>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
 
             </StackPanel>
             <StackPanel Grid.Column="1">
-                <Frame Content="{Binding CurrentView}"/>
+                <Frame NavigationUIVisibility="Hidden"  Content="{Binding CurrentView}"/>
             </StackPanel>
         </Grid>
     </Grid>

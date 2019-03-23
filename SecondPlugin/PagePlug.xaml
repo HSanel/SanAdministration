@@ -1,5 +1,5 @@
 ﻿<Page x:Name="myPage"
-      x:Class="SecondPlugin.PagePlug"
+      x:Class="SecondPlugin.MainPagePlug"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -17,6 +17,6 @@
         </TextBox>
         <TextBox Name="sTB_2"  Width="100" TextWrapping="Wrap" Text="TextBlock" TextChanged="Control_Changed" Margin="350,0" />
         <CheckBox Name="sCHB_1" Content="CheckBox"/>
-        <Label Name="lbBsp" Content="Beispiel Label" Margin="336,194,316,224" FontSize="20" Background="#FF9C9CFF"/>
+        <Label x:Name="lbBsp" Content="Beispiel Label" Margin="336,194,316,224" FontSize="20" Background="#FFFFC99C" Height="82"/>
     </StackPanel>
 </Page>

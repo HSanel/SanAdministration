@@ -33,9 +33,6 @@
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="San.Base.Memory">
-      <HintPath>..\San.Base.Memory\bin\Debug\San.Base.Memory.dll</HintPath>
-    </Reference>
     <Reference Include="San.Base.Plugin">
       <HintPath>..\San.Base.Plugin\bin\Release\San.Base.Plugin.dll</HintPath>
     </Reference>
@@ -53,7 +50,6 @@
   <ItemGroup>
     <Compile Include="CustomCommand.cs" />
     <Compile Include="NotifyPropertyChanged.cs" />
-    <Compile Include="PageBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

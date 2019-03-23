@@ -24,56 +24,67 @@ namespace SecondPlugin
     /// <summary>
     /// Interaktionslogik für PagePlug.xaml
     /// </summary>
-    public partial class PagePlug : Page
+    public partial class MainPagePlug : Page, IPluginPage
     {
-        public event EventHandler StackUpdated;
+
         //next Page
-        public PagePlug(ViewModel viewModel)
+        public MainPagePlug(ViewModel viewModel)
         {
             InitializeComponent();
             DataContext = viewModel;
             
         }
 
+        //--------Beispiel Button----------------------
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             lbBsp.Background = Brushes.Red;
             //SaveData();
         }
-        //--------------------------------------------------------------------
+        //------------------Sachen die in eine Page immer reinkommen--------------------------------------------------
+        public event EventHandler StackUpdated;
+        static ProjectMemory projectMemory = new ProjectMemory();
 
+        public MainPagePlug NextPage
+        {
+            get { return (MainPagePlug)GetValue(NextPageProperty); }
+            set { SetValue(NextPageProperty, value); }
+        }
 
+        public static readonly DependencyProperty NextPageProperty =
+            DependencyProperty.Register(nameof(NextPage), typeof(MainPagePlug), typeof(MainPagePlug), new PropertyMetadata(default(MainPagePlug)));
+
+        public Hashtable SaveData()
+        {
+            projectMemory.ClearOutputMemory();
+            projectMemory.SaveData(this);
+
+            NextPage?.SaveData();
+
+            return projectMemory.GetOutData();
+        }
 
         private void Control_Changed(object sender, RoutedEventArgs e)
         {
-            //var a = (FrameworkElement)sender;
+            FrameworkElement control = (FrameworkElement)sender;
+            if (control.DataContext != null && StackUpdated != null)
+                if (((bool)control.DataContext))
+                    StackUpdated(control, e);
 
-            //if (DataContext != null && StackUpdated != null)
-            //    if (((bool)a.DataContext))
-            //        StackUpdated(sender, e);
-
-            //a.DataContext = true;
+            control.DataContext = true;
         }
 
-        //    //------------------------
-        //    ProjectMemory projectMemory = new ProjectMemory();
-        //    public Hashtable SaveData()
-        //    {
-        //        projectMemory.ClearOutputMemory();
-        //        projectMemory.SaveData(this);
-        //        //nextPage.SaveData(projectMemory);
-        //        //projectMemory.SerilizeData(@"C:\Users\sMBsahasi\Desktop\Pr\data.txt");
-        //        return projectMemory.GetOutData();
-        //    }
+        public void OpenData(object inData)
+        {
+            projectMemory.ClearInputMemory();
+            projectMemory.SetInData(inData);
+            readData();
+        }
 
-        //    public void OpenData(object inData)
-        //    {
-        //        projectMemory.ClearInputMemory();
-        //        //projectMemory.DeserilizeData(@"C:\Users\sMBsahasi\Desktop\Pr\data.txt");
-        //        projectMemory.SetInData(inData);
-        //        projectMemory.ReadData(this);
-        //        //nextPage.ReadData(projectMemory);
-
-        //    }
+        void readData()
+        {
+            projectMemory.ReadData(this);
+            NextPage?.readData();
+        }
     }
 }
