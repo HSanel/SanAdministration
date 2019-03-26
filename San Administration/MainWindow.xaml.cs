@@ -36,5 +36,11 @@ namespace San_Administration
             if (pluginData.ID == 0)
                 rb.IsChecked = true;
         }
+
+        private void Einstellungen_Click(object sender, RoutedEventArgs e)
+        {
+            OptionWindow optionWindow = new OptionWindow(this);
+            optionWindow.ShowDialog();
+        }
     }
 }

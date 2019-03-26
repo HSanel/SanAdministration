@@ -30,7 +30,6 @@ using System.Windows;
 
 //[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)]
 
-
 [assembly:ThemeInfo(
     ResourceDictionaryLocation.None, //Speicherort der designspezifischen Ressourcenwörterbücher
                              //(wird verwendet, wenn eine Ressource auf der Seite nicht gefunden wird,

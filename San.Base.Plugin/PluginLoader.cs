@@ -10,22 +10,20 @@ namespace San.Base.Plugin
 {
     public class PluginLoader
     {
-        string[] dllFileNames = null;
-        string pluginPath = "";
-        ICollection<Assembly> assemblies;
-        ICollection<IPlugin> plugins;
+        static ICollection<IPlugin> plugins;
 
-        public PluginLoader(string pluginPath)
+        public PluginLoader()
         {
-            this.pluginPath = pluginPath;           
+            plugins = new List<IPlugin>();
         }
 
-        public ICollection<IPlugin> LoadPlugins()
+        public ICollection<IPlugin> LoadPlugins(string pluginPath)
         {
             if (Directory.Exists(pluginPath))
             {
-                dllFileNames = Directory.GetFiles(pluginPath, "*.dll");
-                assemblies = new List<Assembly>(dllFileNames.Length);
+                string[] dllFileNames = Directory.GetFiles(pluginPath, "*.dll");
+                string[] directoryNames = Directory.GetDirectories(pluginPath);
+                ICollection<Assembly> assemblies = new List<Assembly>(dllFileNames.Length);
                 foreach(string dllFile in dllFileNames)
                 {
                     AssemblyName assemblyName = AssemblyName.GetAssemblyName(dllFile);
@@ -34,7 +32,7 @@ namespace San.Base.Plugin
                 }
 
                 Type pluginType = typeof(IPlugin);
-                plugins = new List<IPlugin>();
+               
 
                 foreach (Assembly assembly in assemblies)
                 {
@@ -59,6 +57,11 @@ namespace San.Base.Plugin
                             }
                         }
                     }
+                }
+
+                foreach(string directory in directoryNames)
+                {
+                    LoadPlugins(directory);
                 }
 
                 return plugins;

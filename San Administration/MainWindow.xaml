@@ -17,8 +17,17 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Background="#FFECECEC">
             <Menu Height="20" Foreground="#FF707070" BorderBrush="#FFBBBBBB" BorderThickness="0,0,0,1" Margin="5,0">
-                <MenuItem Header="Datei"/>
-                <MenuItem Header="Extras"/>
+                <MenuItem Header="Datei">
+                    <MenuItem Header="Projekt öffnen" Command="{Binding OpenCommand}"/>
+                    <MenuItem Header="Speichern unter" Command="{Binding SaveAsCommand}"/>
+                    <MenuItem Header="Speichern" Command="{Binding SaveCommand}"/>
+                    <Separator/>
+                    <MenuItem Header="Zurück" Command="{Binding UndoCommand}"/>
+                    <MenuItem Header="Vorwärts" Command="{Binding RedoCommand}"/>
+                </MenuItem>
+                <MenuItem Header="Extras">
+                    <MenuItem Header="Einstellungen" Click="Einstellungen_Click"/>
+                </MenuItem>
                 <MenuItem Header="Hilfe"/>
             </Menu>
 
